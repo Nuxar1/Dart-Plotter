@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <iomanip>
 
-constexpr float CONFIDENCE_THRESHOLD = 0.1;
+constexpr float CONFIDENCE_THRESHOLD = 0.0;
 constexpr float NMS_THRESHOLD = 0.4;
 constexpr int NUM_CLASSES = 2;
 
