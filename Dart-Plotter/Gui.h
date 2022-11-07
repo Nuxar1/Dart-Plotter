@@ -16,6 +16,7 @@
 #include "ImGui/imgui_impl_win32.h"
 #include "ImGui/imgui_impl_dx11.h"
 #include "ImGui/imgui_impl_win32.h"
+#include "ImGui/imgui_internal.h"
 #include "ImageDetection.h"
 
 #define MAX_LOADSTRING 100
@@ -114,6 +115,8 @@ private:
 	void DrawRect(ImVec2 curser_pos, std::vector<cv::Rect>::iterator r, float factor, ImU32 color);
 
 	void DrawImageWithDetection();
+
+	ImVec2 GetMouseCursorPositionRelative();
 
 	/// <summary>
 	/// Registers the window class

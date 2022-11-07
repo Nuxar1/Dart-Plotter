@@ -1,6 +1,5 @@
 #include "Gui.h"
 #include "font.h"
-#include "ImGui/imgui_internal.h"
 
 Gui Gui::g_Instance;
 
@@ -82,8 +81,10 @@ BOOL Gui::InitInstance()
 	ImGuiIO& io = ImGui::GetIO();
 	ImFont* m_pFont = io.Fonts->AddFontFromMemoryTTF(font, sizeof(font), 22, nullptr,
 		io.Fonts->GetGlyphRangesCyrillic());
+
 	SetForegroundWindow(hWnd);
 	UpdateWindow(hWnd);
+
 	return TRUE;
 }
 
@@ -385,6 +386,12 @@ void Gui::DrawImageWithDetection()
 	}
 }
 
+ImVec2 Gui::GetMouseCursorPositionRelative() {
+	float x = ImGui::GetMousePos().x - ImGui::GetCursorScreenPos().x - ImGui::GetScrollX();
+	float y = ImGui::GetMousePos().y - ImGui::GetCursorScreenPos().y - ImGui::GetScrollY();
+	return { x, y };
+}
+
 void Gui::Render()
 {
 	ImGui_ImplDX11_NewFrame();
@@ -433,7 +440,7 @@ void Gui::Render()
 						std::ofstream file(path);
 						for (size_t i = 0; i < image_detector->distances.size(); i++)
 						{
-							file << image_detector->distances[i] << (i % 3 == 2 ? "\n" : "\t\t");
+							file << image_detector->distances[i] << "\n";
 						}
 						file.close();
 					}
@@ -450,13 +457,11 @@ void Gui::Render()
 	}
 
 	ImGui::End();
-	ImGui::EndFrame();
+	ImGui::Render();
 	const static float clearColor[] = { 0, 0, 0, 0 };
 	g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, (const float*)(clearColor));
-	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	g_pSwapChain->Present(0, 0);
-	Sleep(1);
+	g_pSwapChain->Present(1, 0);
 }
 
 

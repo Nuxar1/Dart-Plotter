@@ -2,11 +2,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
+#include "ImGui/imgui.h"
+
 #include <opencv2/core.hpp>
 #include <opencv2/dnn.hpp>
 #include <opencv2/dnn/all_layers.hpp>
 #include <opencv2/core/directx.hpp>
-
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
@@ -28,4 +30,6 @@ public:
 
 	std::vector<cv::Rect> center;
 	cv::Mat image;
+	
+	std::vector<ImVec2> scale_points[2];
 };
